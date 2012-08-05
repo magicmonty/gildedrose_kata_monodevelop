@@ -18,3 +18,4 @@ _ReSharper*
 src/GildedRose.Test/test-results
 GildedRose.userprefs
 *.pidb
+test-results
