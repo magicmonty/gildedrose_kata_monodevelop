@@ -39,6 +39,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="TestAssemblyTests.cs" />
+    <Compile Include="ItemBehaviorBase.cs" />
+    <Compile Include="TestItems.cs" />
+    <Compile Include="SimpleItemTests.cs" />
+    <Compile Include="MaturingItemTests.cs" />
+    <Compile Include="ScalpingItemTests.cs" />
+    <Compile Include="PristineItemTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GildedRose.Console\GildedRose.Console.csproj">
+      <Project>{D75F10A6-EC0E-456E-823B-4C6F49A90956}</Project>
+      <Name>GildedRose.Console</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

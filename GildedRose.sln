@@ -24,6 +24,6 @@ Global
 		{D75F10A6-EC0E-456E-823B-4C6F49A90956}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = src\GildedRose.Console\GildedRose.Console.csproj
+		StartupItem = src\GildedRose.Test\GildedRose.Test.csproj
 	EndGlobalSection
 EndGlobal

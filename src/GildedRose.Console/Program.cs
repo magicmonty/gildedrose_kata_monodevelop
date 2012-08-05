@@ -2,14 +2,15 @@
 
 namespace GildedRose.Console
 {
-    class Program
-    {
-        IList<Item> Items;
-        static void Main(string[] args)
-        {
-            System.Console.WriteLine("OMGHAI!");
+	public class Program
+	{
+		public IList<Item> Items;
+		
+		static void Main (string[] args)
+		{
+			System.Console.WriteLine ("OMGHAI!");
 
-            var app = new Program()
+			var app = new Program ()
                           {
                               Items = new List<Item>
                                           {
@@ -28,104 +29,96 @@ namespace GildedRose.Console
 
                           };
 
-            app.UpdateQuality();
+			app.UpdateQuality ();
 
-            System.Console.ReadKey();
+			System.Console.ReadKey ();
 
-        }
+		}
 		
-		private static int MAX_QUALITY = 50;
-
+		public static int MAX_QUALITY = 50;
         
-		bool ItemDecreasesInQuality(Item item)
+		bool ItemDecreasesInQuality (Item item)
 		{
 			return item.Name != "Sulfuras, Hand of Ragnaros";
 		}
 
-		bool ItemMaturesWithTime(Item item)
+		bool ItemMaturesWithTime (Item item)
 		{
 			return item.Name == "Aged Brie";
 		}
 
-		bool ItemIsScalping(Item item)
+		bool ItemIsScalping (Item item)
 		{
 			return item.Name == "Backstage passes to a TAFKAL80ETC concert";
-		}        
+		}
 		
-        public void UpdateQuality()
-        {
-            foreach (Item item in Items)
-            {
-				if (ItemMaturesWithTime(item) || ItemIsScalping (item))
-                {
-                    if (item.Quality < MAX_QUALITY)
-                    {
-                        item.Quality = item.Quality + 1;
+		public void UpdateQuality ()
+		{
+			foreach (Item item in Items) {
+				UpdateItemQuality (item);
+				UpdateSellIn(item);
 
-                        if (ItemIsScalping(item))
-                        {
-                            if (item.SellIn < 11)
-                            {
-                                if (item.Quality < MAX_QUALITY)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
+				if (item.SellIn >= 0) {
+					continue;
+				}
+				
+				UpdateExpiredItemQuality(item);
+			}
+		}
 
-                            if (item.SellIn < 6)
-                            {
-                                if (item.Quality < MAX_QUALITY)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (item.Quality > 0)
-                    {
-                        if (ItemDecreasesInQuality(item))
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
-                    }
-                }
+		void UpdateItemQuality (Item item)
+		{
+			if (ItemMaturesWithTime (item) || ItemIsScalping (item)) {
+				if (item.Quality < MAX_QUALITY) {
+					item.Quality = item.Quality + 1;
+        	
+					if (ItemIsScalping (item)) {
+						if (item.SellIn < 11) {
+							if (item.Quality < MAX_QUALITY) {
+								item.Quality = item.Quality + 1;
+							}
+						}
+        	
+						if (item.SellIn < 6) {
+							if (item.Quality < MAX_QUALITY) {
+								item.Quality = item.Quality + 1;
+							}
+						}
+					}
+				}
+			} else {
+				if (item.Quality > 0) {
+					if (ItemDecreasesInQuality (item)) {
+						item.Quality = item.Quality - 1;
+					}
+				}
+			}
+		}
 
-                if (ItemDecreasesInQuality(item))
-                {
-                    item.SellIn = item.SellIn - 1;
-                }
+		void UpdateSellIn(Item item)
+		{
+			if (ItemDecreasesInQuality (item)) {
+				item.SellIn = item.SellIn - 1;
+			}
+		}
 
-                if (item.SellIn < 0)
-                {
-                    if (ItemMaturesWithTime(item))
-                    {
-                        if (item.Quality < MAX_QUALITY)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
-                    else
-                    {
-                        if (ItemIsScalping(item))
-                        {
-                            item.Quality = item.Quality - item.Quality;
-                        }
-                        else
-                        {
-                            if (item.Quality > 0)
-                            {
-                                if (ItemDecreasesInQuality(item))
-                                {
-                                    item.Quality = item.Quality - 1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+		void UpdateExpiredItemQuality(Item item)
+		{
+			if (ItemMaturesWithTime (item)) {
+				if (item.Quality < MAX_QUALITY) {
+					item.Quality = item.Quality + 1;
+				}
+			} else {
+				if (ItemIsScalping (item)) {
+					item.Quality = item.Quality - item.Quality;
+				} else {
+					if (item.Quality > 0) {
+						if (ItemDecreasesInQuality (item)) {
+							item.Quality = item.Quality - 1;
+						}
+					}
+				}
+			}
+		}
+	}
 }
