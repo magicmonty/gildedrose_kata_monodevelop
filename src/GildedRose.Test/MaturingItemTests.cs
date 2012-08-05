@@ -15,9 +15,9 @@ namespace GildedRose.Tests
 		[Test]
 		public void AMaturingItemShouldNeverIncreaseInQualityBeyondMaximum() {
 			Item item = TestItems.MaturingItem;
-			item.Quality = Program.MAX_QUALITY;
+			item.Quality = AbstractRetailItem.MAX_QUALITY;
 			SetupItem(item);
-			Assert.AreEqual(Program.MAX_QUALITY, _item.Quality);
+			Assert.AreEqual(AbstractRetailItem.MAX_QUALITY, _item.Quality);
 		}
 		
 		[Test]
@@ -46,9 +46,9 @@ namespace GildedRose.Tests
 		public void AnExpiredMaturingItemShouldNeverIncreaseInQualityBeyondMaximum() {
 			Item item = TestItems.MaturingItem;
 			item.SellIn = -1;
-			item.Quality = Program.MAX_QUALITY - 1;
+			item.Quality = AbstractRetailItem.MAX_QUALITY - 1;
 			SetupItem(item);
-			Assert.AreEqual(Program.MAX_QUALITY, _item.Quality);
+			Assert.AreEqual(AbstractRetailItem.MAX_QUALITY, _item.Quality);
 		}
 	}
 }

@@ -37,6 +37,12 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="RetailItem.cs" />
+    <Compile Include="RetailItemFactory.cs" />
+    <Compile Include="SimpleItem.cs" />
+    <Compile Include="MaturingItem.cs" />
+    <Compile Include="ScalpingItem.cs" />
+    <Compile Include="PristineItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

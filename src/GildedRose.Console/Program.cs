@@ -33,92 +33,14 @@ namespace GildedRose.Console
 
 			System.Console.ReadKey ();
 
-		}
-		
-		public static int MAX_QUALITY = 50;
-        
-		bool ItemDecreasesInQuality (Item item)
-		{
-			return item.Name != "Sulfuras, Hand of Ragnaros";
-		}
-
-		bool ItemMaturesWithTime (Item item)
-		{
-			return item.Name == "Aged Brie";
-		}
-
-		bool ItemIsScalping (Item item)
-		{
-			return item.Name == "Backstage passes to a TAFKAL80ETC concert";
-		}
+		}		
 		
 		public void UpdateQuality ()
 		{
 			foreach (Item item in Items) {
-				UpdateItemQuality (item);
-				UpdateSellIn(item);
-
-				if (item.SellIn >= 0) {
-					continue;
-				}
-				
-				UpdateExpiredItemQuality(item);
+				RetailItemFactory.Create(item).Update();
 			}
 		}
 
-		void UpdateItemQuality (Item item)
-		{
-			if (ItemMaturesWithTime (item) || ItemIsScalping (item)) {
-				if (item.Quality < MAX_QUALITY) {
-					item.Quality = item.Quality + 1;
-        	
-					if (ItemIsScalping (item)) {
-						if (item.SellIn < 11) {
-							if (item.Quality < MAX_QUALITY) {
-								item.Quality = item.Quality + 1;
-							}
-						}
-        	
-						if (item.SellIn < 6) {
-							if (item.Quality < MAX_QUALITY) {
-								item.Quality = item.Quality + 1;
-							}
-						}
-					}
-				}
-			} else {
-				if (item.Quality > 0) {
-					if (ItemDecreasesInQuality (item)) {
-						item.Quality = item.Quality - 1;
-					}
-				}
-			}
-		}
-
-		void UpdateSellIn(Item item)
-		{
-			if (ItemDecreasesInQuality (item)) {
-				item.SellIn = item.SellIn - 1;
-			}
-		}
-
-		void UpdateExpiredItemQuality(Item item)
-		{
-			if (ItemMaturesWithTime (item)) {
-				if (item.Quality < MAX_QUALITY) {
-					item.Quality = item.Quality + 1;
-				}
-			} else {
-				if (ItemIsScalping (item)) {
-					item.Quality = item.Quality - item.Quality;
-				} else {
-					if (item.Quality > 0) {
-						if (ItemDecreasesInQuality (item)) {
-							item.Quality = item.Quality - 1;
-						}
-					}
-				}
-			}
-		}
 	}
 }

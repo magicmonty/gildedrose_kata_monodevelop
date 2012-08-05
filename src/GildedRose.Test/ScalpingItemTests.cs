@@ -15,9 +15,9 @@ namespace GildedRose.Tests
 		[Test]
 		public void AScalpingItemShouldNeverIncreaseInQualityBeyondMaximum() {
 			Item item = TestItems.ScalpingItem;
-			item.Quality = Program.MAX_QUALITY;
+			item.Quality = AbstractRetailItem.MAX_QUALITY;
 			SetupItem(item);
-			Assert.AreEqual(Program.MAX_QUALITY, _item.Quality);
+			Assert.AreEqual(AbstractRetailItem.MAX_QUALITY, _item.Quality);
 		}
 
 		[Test]
@@ -32,9 +32,9 @@ namespace GildedRose.Tests
 		public void AScalpingItemShouldNotIncreaseInQualityBeyondMaximumIfSellInIsLessThan11() {
 			Item item = TestItems.ScalpingItem;
 			item.SellIn = 10;
-			item.Quality = Program.MAX_QUALITY - 1;
+			item.Quality = AbstractRetailItem.MAX_QUALITY - 1;
 			SetupItem(item);
-			Assert.AreEqual(Program.MAX_QUALITY, _item.Quality);
+			Assert.AreEqual(AbstractRetailItem.MAX_QUALITY, _item.Quality);
 		}
 
 		[Test]
@@ -49,9 +49,9 @@ namespace GildedRose.Tests
 		public void AScalpingItemShouldNotIncreaseInQualityBeyondMaximumIfSellInIsLessThan6() {
 			Item item = TestItems.ScalpingItem;
 			item.SellIn = 5;
-			item.Quality = Program.MAX_QUALITY - 1;
+			item.Quality = AbstractRetailItem.MAX_QUALITY - 1;
 			SetupItem(item);
-			Assert.AreEqual(Program.MAX_QUALITY, _item.Quality);
+			Assert.AreEqual(AbstractRetailItem.MAX_QUALITY, _item.Quality);
 		}
 
 		[Test]
